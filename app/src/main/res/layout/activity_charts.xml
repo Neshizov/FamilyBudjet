@@ -1,0 +1,137 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundLight">
+
+    <LinearLayout
+        android:id="@+id/chartLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Кнопка "В меню" -->
+        <Button
+            android:id="@+id/buttonBackToMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="В меню"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- График расходов -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChartTotal"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Слайдер графиков -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:contentDescription="Список графиков семейных расходов"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Поле ввода "Имя члена семьи" -->
+        <EditText
+            android:id="@+id/editTextFamilyMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите имя члена семьи"
+            android:backgroundTint="@color/inputBackground"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:padding="12dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Поле ввода "Категория" -->
+        <EditText
+            android:id="@+id/editTextCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите категорию"
+            android:backgroundTint="@color/inputBackground"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:padding="12dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Поле ввода "Сумма расхода" -->
+        <EditText
+            android:id="@+id/editTextAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите сумму расхода"
+            android:backgroundTint="@color/inputBackground"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Кнопка "Добавить расход" -->
+        <Button
+            android:id="@+id/buttonAddExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавить расход"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Кнопка "Очистить базу данных" -->
+        <Button
+            android:id="@+id/buttonClearDatabase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Очистить базу данных"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/accentColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Кнопка "Удалить по члену семьи" -->
+        <Button
+            android:id="@+id/buttonDeleteSpecific"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Удалить по члену семьи"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/secondaryColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Кнопка "Удалить по категории" -->
+        <Button
+            android:id="@+id/buttonDeleteByCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Удалить по категории"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/secondaryColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp" />
+    </LinearLayout>
+</ScrollView>

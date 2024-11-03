@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundLight"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/chartLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Кнопка "В меню" -->
+        <Button
+            android:id="@+id/buttonBackToMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="В меню"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- График доходов -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChartIncome"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Слайдер графиков доходов -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:contentDescription="Список графиков доходов"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Поле ввода "Имя члена семьи" -->
+        <EditText
+            android:id="@+id/editTextFamilyMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите имя члена семьи"
+            android:backgroundTint="@color/inputBackground"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:padding="12dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Поле ввода "Источник дохода" -->
+        <EditText
+            android:id="@+id/editTextSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите источник дохода"
+            android:backgroundTint="@color/inputBackground"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:padding="12dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Поле ввода "Сумма дохода" -->
+        <EditText
+            android:id="@+id/editTextAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите сумму дохода"
+            android:backgroundTint="@color/inputBackground"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/edittext_rounded"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Кнопка "Добавить доход" -->
+        <Button
+            android:id="@+id/buttonAddIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавить доход"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Кнопка "Очистить базу данных" -->
+        <Button
+            android:id="@+id/buttonClearDatabase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Очистить базу данных"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/accentColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Кнопка "Удалить доход по члену семьи" -->
+        <Button
+            android:id="@+id/buttonDeleteSpecific"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Удалить доход члена семьи"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/secondaryColor"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_rounded"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp" />
+    </LinearLayout>
+</ScrollView>
