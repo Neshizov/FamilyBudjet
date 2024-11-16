@@ -1,0 +1,13 @@
+<resources>
+    <!-- Стиль для Spinner -->
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:textColor">@android:color/black</item> <!-- Черный цвет текста -->
+        <item name="android:background">@android:color/black</item> <!-- Белый фон спиннера -->
+    </style>
+
+    <!-- Стиль для выпадающего списка Spinner -->
+    <style name="CustomSpinnerDropDown" parent="Widget.AppCompat.ListPopupWindow">
+        <item name="android:popupBackground">@android:color/black</item> <!-- Белый фон выпадающего списка -->
+        <item name="android:textColor">@android:color/black</item> <!-- Черный текст в выпадающем списке -->
+    </style>
+</resources>

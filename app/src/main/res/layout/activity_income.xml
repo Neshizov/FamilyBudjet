@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundLight"
@@ -24,6 +25,16 @@
             android:background="@drawable/button_rounded"
             android:elevation="4dp"
             android:layout_marginBottom="16dp" />
+
+        <Spinner
+            android:id="@+id/spinnerMonth"
+            style="@style/CustomSpinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:popupBackground="@android:color/black"
+            android:layout_marginBottom="16dp" />
+
+
 
         <!-- График доходов -->
         <com.github.mikephil.charting.charts.PieChart

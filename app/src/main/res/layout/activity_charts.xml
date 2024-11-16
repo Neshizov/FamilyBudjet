@@ -24,6 +24,15 @@
             android:elevation="4dp"
             android:layout_marginBottom="16dp" />
 
+        <Spinner
+            android:id="@+id/spinnerMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+        android:popupBackground="@android:color/white"
+        android:layout_marginBottom="16dp" />
+
+
         <!-- График расходов -->
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartTotal"

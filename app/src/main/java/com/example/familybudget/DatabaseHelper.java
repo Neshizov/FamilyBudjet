@@ -12,87 +12,117 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String INCOME_TABLE = "income";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2); // Версия базы данных увеличена до 2
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + EXPENSES_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, FAMILY_MEMBER TEXT, CATEGORY TEXT, AMOUNT REAL)");
-        db.execSQL("CREATE TABLE " + INCOME_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, FAMILY_MEMBER TEXT, SOURCE TEXT, AMOUNT REAL)");
+        db.execSQL("CREATE TABLE " + EXPENSES_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, FAMILY_MEMBER TEXT, CATEGORY TEXT, AMOUNT REAL, MONTH TEXT)");
+        db.execSQL("CREATE TABLE " + INCOME_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, FAMILY_MEMBER TEXT, SOURCE TEXT, AMOUNT REAL, MONTH TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + EXPENSES_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + INCOME_TABLE);
-        onCreate(db);
+        if (oldVersion < 2) {
+            // Добавление столбцов без значений по умолчанию
+            db.execSQL("ALTER TABLE " + EXPENSES_TABLE + " ADD COLUMN MONTH TEXT");
+            db.execSQL("ALTER TABLE " + INCOME_TABLE + " ADD COLUMN MONTH TEXT");
+        }
     }
 
-    public boolean addIncome(String familyMember, String source, double amount) {
+    // Получение текущего месяца в формате "MM-YYYY"
+    public String getCurrentMonth() {
+        // Возвращает текущий месяц в формате "MM-YYYY"
+        return android.text.format.DateFormat.format("MM-yyyy", new java.util.Date()).toString();
+    }
+
+    // Добавление доходов с указанием месяца
+    public boolean addIncome(String familyMember, String source, double amount, String month) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("FAMILY_MEMBER", familyMember);
         contentValues.put("SOURCE", source);
         contentValues.put("AMOUNT", amount);
+        contentValues.put("MONTH", month);
 
-        long result = db.insert(INCOME_TABLE, null, contentValues); // Use INCOME_TABLE constant here
+        long result = db.insert(INCOME_TABLE, null, contentValues);
         return result != -1;
     }
 
-
-
-    public boolean insertExpense(String familyMember, String category, double amount) {
+    // Добавление расходов с указанием месяца
+    public boolean insertExpense(String familyMember, String category, double amount, String month) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("FAMILY_MEMBER", familyMember);
         contentValues.put("CATEGORY", category);
         contentValues.put("AMOUNT", amount);
+        contentValues.put("MONTH", month);
+
         long result = db.insert(EXPENSES_TABLE, null, contentValues);
         return result != -1;
     }
 
-    public void clearIncomes() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(INCOME_TABLE, null, null);
-    }
-
-    public void deleteIncomeByFamilyMember(String familyMember) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(INCOME_TABLE, "FAMILY_MEMBER = ?", new String[]{familyMember});
-    }
-
-
+    // Получение всех доходов
     public Cursor getAllIncomes() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + INCOME_TABLE, null);
     }
 
-
-    public boolean insertIncome(String familyMember, String source, double amount) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("FAMILY_MEMBER", familyMember);
-        contentValues.put("SOURCE", source);
-        contentValues.put("AMOUNT", amount);
-        long result = db.insert(INCOME_TABLE, null, contentValues);
-        return result != -1;
-    }
-
+    // Получение всех расходов
     public Cursor getAllExpenses() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + EXPENSES_TABLE, null);
     }
 
+    // Получение доходов по месяцу
+    public Cursor getIncomesByMonth(String month) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + INCOME_TABLE + " WHERE MONTH = ?", new String[]{month});
+    }
+
+    // Получение расходов по месяцу
+    public Cursor getExpensesByMonth(String month) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + EXPENSES_TABLE + " WHERE MONTH = ?", new String[]{month});
+    }
+
+    // Удаление доходов по имени члена семьи и месяцу
+    public void deleteIncomeByFamilyMemberAndMonth(String familyMember, String month) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(INCOME_TABLE, "FAMILY_MEMBER = ? AND MONTH = ?", new String[]{familyMember, month});
+    }
+
+    // Удаление расходов по имени члена семьи и месяцу
+    public void deleteExpenseByFamilyMemberAndMonth(String familyMember, String month) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(EXPENSES_TABLE, "FAMILY_MEMBER = ? AND MONTH = ?", new String[]{familyMember, month});
+    }
+
+    // Очистка всей базы данных доходов
+    public void clearIncomes() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(INCOME_TABLE, null, null);
+    }
+
+    // Очистка всей базы данных расходов
     public void clearExpenses() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(EXPENSES_TABLE, null, null);
     }
 
+    // Удаление всех доходов конкретного члена семьи
+    public void deleteIncomeByFamilyMember(String familyMember) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(INCOME_TABLE, "FAMILY_MEMBER = ?", new String[]{familyMember});
+    }
+
+    // Удаление всех расходов конкретного члена семьи
     public void deleteExpenseByFamilyMember(String familyMember) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(EXPENSES_TABLE, "FAMILY_MEMBER = ?", new String[]{familyMember});
     }
 
+    // Удаление расходов конкретного члена семьи по категории
     public void deleteExpenseByFamilyMemberAndCategory(String familyMember, String category) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(EXPENSES_TABLE, "FAMILY_MEMBER = ? AND CATEGORY = ?", new String[]{familyMember, category});
