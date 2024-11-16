@@ -10,4 +10,7 @@
     <color name="secondaryColor">#F59E0B</color> <!-- Цвет для дополнительного акцента -->
     <color name="backgroundLight">#F3F4F6</color> <!-- Светлый фон -->
     <color name="inputBackground">#E0E7FF</color>
+    <color name="softGreen">#A8E6CF</color>
+    <color name="softBlue">#A7C7E7</color>
+    <color name="softPurple">#D1A7E7</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.familybudget;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ public class IncomeActivity extends AppCompatActivity {
 
     DatabaseHelper db;
     PieChart pieChartTotalIncome;
-    Button buttonClearDatabase, buttonDeleteSpecific, buttonAddIncome;
+    Button buttonClearDatabase, buttonDeleteSpecific, buttonAddIncome, buttonBackToMenu; // Добавлена кнопка для возврата в меню
     EditText editTextFamilyMember, editTextSource, editTextAmount;
     Spinner spinnerMonth; // Новый элемент для выбора месяца
     ViewPager viewPager;
@@ -42,6 +43,14 @@ public class IncomeActivity extends AppCompatActivity {
         editTextFamilyMember = findViewById(R.id.editTextFamilyMember);
         editTextSource = findViewById(R.id.editTextSource);
         editTextAmount = findViewById(R.id.editTextAmount);
+        buttonBackToMenu = findViewById(R.id.buttonBackToMenu); // Инициализация кнопки "В меню"
+
+        // Обработчик для кнопки "В меню"
+        buttonBackToMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(IncomeActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Закрывает текущую активность, чтобы вернуться на главную
+        });
 
         // Установка массива месяцев в Spinner
         String[] monthArray = {"Январь 2024", "Февраль 2024", "Март 2024", "Апрель 2024", "Май 2024", "Июнь 2024",

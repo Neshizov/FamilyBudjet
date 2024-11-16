@@ -1,5 +1,6 @@
 package com.example.familybudget;
 
+import android.content.Intent;  // Импортируем для работы с Intent
 import android.database.Cursor;
 import android.view.View;
 import android.os.Bundle;
@@ -21,25 +22,26 @@ public class ChartsActivity extends AppCompatActivity {
 
     DatabaseHelper db;
     PieChart pieChartTotal;
-    Button buttonClearDatabase, buttonDeleteSpecific, buttonDeleteByCategory, buttonAddExpense;
+    Button buttonClearDatabase, buttonDeleteSpecific, buttonDeleteByCategory, buttonAddExpense, buttonBackToMenu;
     EditText editTextFamilyMember, editTextCategory, editTextAmount;
-    Spinner spinnerMonth; // Новый элемент для выбора месяца
+    Spinner spinnerMonth;
     ViewPager viewPager;
     FamilyMemberPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_charts); // Обновлена разметка для расходов
+        setContentView(R.layout.activity_charts);
 
         db = new DatabaseHelper(this);
         pieChartTotal = findViewById(R.id.pieChartTotal);
         viewPager = findViewById(R.id.viewPager);
-        spinnerMonth = findViewById(R.id.spinnerMonth); // Инициализация spinner
+        spinnerMonth = findViewById(R.id.spinnerMonth);
         buttonClearDatabase = findViewById(R.id.buttonClearDatabase);
         buttonDeleteSpecific = findViewById(R.id.buttonDeleteSpecific);
         buttonDeleteByCategory = findViewById(R.id.buttonDeleteByCategory);
         buttonAddExpense = findViewById(R.id.buttonAddExpense);
+        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);  // Добавляем кнопку "В меню"
         editTextFamilyMember = findViewById(R.id.editTextFamilyMember);
         editTextCategory = findViewById(R.id.editTextCategory);
         editTextAmount = findViewById(R.id.editTextAmount);
@@ -52,8 +54,8 @@ public class ChartsActivity extends AppCompatActivity {
         spinnerMonth.setAdapter(adapter);
 
         // Установка текущего месяца по умолчанию
-        int currentMonth = Calendar.getInstance().get(Calendar.MONTH); // Получаем текущий месяц (0-11)
-        spinnerMonth.setSelection(currentMonth); // Устанавливаем текущий месяц в Spinner
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        spinnerMonth.setSelection(currentMonth);
 
         // Установка обработчика выбора месяца
         spinnerMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -72,10 +74,17 @@ public class ChartsActivity extends AppCompatActivity {
         buttonDeleteSpecific.setOnClickListener(v -> deleteSpecificFamilyMember());
         buttonDeleteByCategory.setOnClickListener(v -> deleteByCategory());
         buttonAddExpense.setOnClickListener(v -> addExpense());
+
+        // Обработчик кнопки "В меню"
+        buttonBackToMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(ChartsActivity.this, MainActivity.class);  // Переход в главное меню
+            startActivity(intent);  // Запуск activity
+            finish();  // Завершаем текущую activity (ChartsActivity)
+        });
     }
 
     private void loadCharts(String selectedMonth) {
-        Cursor cursor = db.getExpensesByMonth(selectedMonth); // Загрузка расходов для выбранного месяца
+        Cursor cursor = db.getExpensesByMonth(selectedMonth);
         Map<String, Double> totalExpenses = new HashMap<>();
         Map<String, Map<String, Double>> memberExpenses = new HashMap<>();
 
@@ -109,7 +118,7 @@ public class ChartsActivity extends AppCompatActivity {
     }
 
     private void clearDatabase() {
-        db.clearExpenses(); // Очистка данных о расходах
+        db.clearExpenses();
         Toast.makeText(this, "База данных очищена", Toast.LENGTH_SHORT).show();
         loadCharts(spinnerMonth.getSelectedItem().toString());
     }
@@ -123,7 +132,7 @@ public class ChartsActivity extends AppCompatActivity {
         if (!familyMember.isEmpty() && !category.isEmpty() && !amountStr.isEmpty()) {
             try {
                 double amount = Double.parseDouble(amountStr);
-                db.insertExpense(familyMember, category, amount, selectedMonth); // Добавление расхода
+                db.insertExpense(familyMember, category, amount, selectedMonth);
                 Toast.makeText(this, "Расход добавлен", Toast.LENGTH_SHORT).show();
                 loadCharts(selectedMonth);
             } catch (NumberFormatException e) {
@@ -139,7 +148,7 @@ public class ChartsActivity extends AppCompatActivity {
         String selectedMonth = spinnerMonth.getSelectedItem().toString();
 
         if (!familyMember.isEmpty()) {
-            db.deleteExpenseByFamilyMemberAndMonth(familyMember, selectedMonth); // Удаление расходов для члена семьи
+            db.deleteExpenseByFamilyMemberAndMonth(familyMember, selectedMonth);
             Toast.makeText(this, "Расходы для " + familyMember + " удалены", Toast.LENGTH_SHORT).show();
             loadCharts(selectedMonth);
         } else {
@@ -153,7 +162,7 @@ public class ChartsActivity extends AppCompatActivity {
         String selectedMonth = spinnerMonth.getSelectedItem().toString();
 
         if (!familyMember.isEmpty() && !category.isEmpty()) {
-            db.deleteExpenseByFamilyMemberAndMonth(familyMember, selectedMonth); // Удаление по категории
+            db.deleteExpenseByFamilyMemberAndMonth(familyMember, selectedMonth);
             Toast.makeText(this, "Расходы для " + familyMember + " удалены", Toast.LENGTH_SHORT).show();
             loadCharts(selectedMonth);
         } else {

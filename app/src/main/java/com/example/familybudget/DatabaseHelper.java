@@ -115,7 +115,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(INCOME_TABLE, "FAMILY_MEMBER = ?", new String[]{familyMember});
     }
-
     // Удаление всех расходов конкретного члена семьи
     public void deleteExpenseByFamilyMember(String familyMember) {
         SQLiteDatabase db = this.getWritableDatabase();
