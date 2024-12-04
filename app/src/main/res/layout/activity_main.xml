@@ -5,26 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="?android:attr/colorBackground">
+    android:background="@drawable/gradient_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="24dp">
 
+        <!-- Кнопка "Расходы" -->
         <Button
             android:id="@+id/buttonViewCharts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Расходы"
-            android:backgroundTint="@color/primaryColor"
+            android:background="@drawable/button_sber_style"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-medium"
             android:layout_marginBottom="16dp"
             android:drawablePadding="8dp"
             android:elevation="4dp"
-            android:background="@drawable/button_rounded"/>
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp" />
 
+        <!-- Кнопка "Доходы" -->
         <Button
             android:id="@+id/buttonViewIncome"
             android:layout_width="match_parent"
@@ -32,13 +35,15 @@
             android:layout_below="@id/buttonViewCharts"
             android:layout_marginTop="16dp"
             android:text="Доходы"
-            android:backgroundTint="@color/accentColor"
+            android:background="@drawable/button_sber_style"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-medium"
             android:drawablePadding="8dp"
             android:elevation="4dp"
-            android:background="@drawable/button_rounded"/>
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp" />
 
+        <!-- Кнопка "Сбережения" -->
         <Button
             android:id="@+id/buttonViewSavings"
             android:layout_width="match_parent"
@@ -46,20 +51,13 @@
             android:layout_below="@id/buttonViewIncome"
             android:layout_marginTop="16dp"
             android:text="Сбережения"
-            android:backgroundTint="@color/secondaryColor"
+            android:background="@drawable/button_sber_style"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-medium"
             android:drawablePadding="8dp"
             android:elevation="4dp"
-            android:background="@drawable/button_rounded"/>
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp" />
     </RelativeLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:backgroundTint="@color/backgroundLight"
-        app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

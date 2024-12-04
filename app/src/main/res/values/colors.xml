@@ -1,16 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#6200EE</color> <!-- Основной цвет -->
-    <color name="colorAccent">#03DAC5</color> <!-- Цвет акцента -->
-    <color name="light_blue">#ADD8E6</color>
-    <color name="primaryColor">#3B82F6</color> <!-- Акцентный цвет -->
-    <color name="accentColor">#10B981</color> <!-- Второй акцентный цвет -->
-    <color name="secondaryColor">#F59E0B</color> <!-- Цвет для дополнительного акцента -->
-    <color name="backgroundLight">#F3F4F6</color> <!-- Светлый фон -->
-    <color name="inputBackground">#E0E7FF</color>
-    <color name="softGreen">#A8E6CF</color>
-    <color name="softBlue">#A7C7E7</color>
-    <color name="softPurple">#D1A7E7</color>
+    <!-- Цвета фона -->
+    <color name="backgroundDark">#212121</color> <!-- Тёмно-серый фон -->
+    <color name="backgroundLight">#333333</color> <!-- Светло-тёмный фон -->
+
+    <!-- Цвета текста -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#9E9E9E</color> <!-- Светло-серый -->
+    <color name="grayLight">#BDBDBD</color> <!-- Более светлый серый -->
+
+    <!-- Основные цвета -->
+    <color name="primaryGreen">#4CAF50</color> <!-- Зелёный -->
+    <color name="primaryGreenDark">#2E7D32</color> <!-- Тёмно-зелёный -->
+    <color name="secondaryGray">#607D8B</color> <!-- Серо-синий -->
+    <color name="secondaryGrayDark">#455A64</color> <!-- Тёмно-серый -->
+
+    <color name="inputBackground">#1C1C1E</color> <!-- Основной фон -->
+    <color name="inputStroke">#3A3A3C</color> <!-- Цвет рамки -->
 </resources>

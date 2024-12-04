@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundLight">
+    android:background="@color/backgroundDark">
 
     <LinearLayout
         android:id="@+id/chartLayout"
@@ -17,21 +17,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="В меню"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primaryColor"
+            android:textColor="@color/white"
+            android:background="@drawable/button_sber_style"
             android:fontFamily="sans-serif-medium"
-            android:background="@drawable/button_rounded"
             android:elevation="4dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp" />
 
+        <!-- Spinner для выбора месяца -->
         <Spinner
             android:id="@+id/spinnerMonth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-        android:popupBackground="@android:color/white"
-        android:layout_marginBottom="16dp" />
-
+            android:background="@drawable/spinner_dark_style"
+            android:popupBackground="@color/backgroundLight"
+            android:layout_marginBottom="16dp"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:textAlignment="center" />
 
         <!-- График расходов -->
         <com.github.mikephil.charting.charts.PieChart
@@ -54,12 +58,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Введите имя члена семьи"
-            android:backgroundTint="@color/inputBackground"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
+            android:background="@drawable/edittext_dark_style"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grayLight"
             android:padding="12dp"
             android:fontFamily="sans-serif"
-            android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="8dp" />
 
         <!-- Поле ввода "Категория" -->
@@ -68,12 +71,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Введите категорию"
-            android:backgroundTint="@color/inputBackground"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
+            android:background="@drawable/edittext_dark_style"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grayLight"
             android:padding="12dp"
             android:fontFamily="sans-serif"
-            android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="8dp" />
 
         <!-- Поле ввода "Сумма расхода" -->
@@ -82,27 +84,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Введите сумму расхода"
-            android:backgroundTint="@color/inputBackground"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
+            android:background="@drawable/edittext_dark_style"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grayLight"
             android:inputType="numberDecimal"
             android:padding="12dp"
             android:fontFamily="sans-serif"
-            android:background="@drawable/edittext_rounded"
             android:layout_marginBottom="8dp" />
 
         <!-- Кнопка "Добавить расход" -->
         <Button
             android:id="@+id/buttonAddExpense"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Добавить расход"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primaryColor"
+            android:textColor="@color/white"
+            android:background="@drawable/button_sber_style"
             android:fontFamily="sans-serif-medium"
-            android:background="@drawable/button_rounded"
             android:elevation="4dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:paddingVertical="12dp" />
 
         <!-- Кнопка "Очистить базу данных" -->
         <Button
@@ -110,12 +111,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Очистить базу данных"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/accentColor"
+            android:textColor="@color/white"
+            android:background="@drawable/button_secondary_dark"
             android:fontFamily="sans-serif-medium"
-            android:background="@drawable/button_rounded"
             android:elevation="4dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:paddingVertical="12dp" />
 
         <!-- Кнопка "Удалить по члену семьи" -->
         <Button
@@ -123,12 +124,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Удалить по члену семьи"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/secondaryColor"
+            android:textColor="@color/white"
+            android:background="@drawable/button_secondary_dark"
             android:fontFamily="sans-serif-medium"
-            android:background="@drawable/button_rounded"
             android:elevation="4dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:paddingVertical="12dp" />
 
         <!-- Кнопка "Удалить по категории" -->
         <Button
@@ -136,11 +137,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Удалить по категории"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/secondaryColor"
+            android:textColor="@color/white"
+            android:background="@drawable/button_secondary_dark"
             android:fontFamily="sans-serif-medium"
-            android:background="@drawable/button_rounded"
             android:elevation="4dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:paddingVertical="12dp" />
     </LinearLayout>
 </ScrollView>
