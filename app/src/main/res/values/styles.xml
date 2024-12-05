@@ -1,13 +1,39 @@
-<resources>
-    <!-- Стиль для Spinner -->
-    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
-        <item name="android:textColor">@android:color/black</item> <!-- Черный цвет текста -->
-        <item name="android:background">@android:color/black</item> <!-- Белый фон спиннера -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Основной стиль кнопки -->
+    <style name="ButtonSberStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/button_background</item> <!-- Цвет фона с радиусом скругления -->
+        <item name="android:textColor">@android:color/white</item> <!-- Цвет текста -->
+        <item name="android:paddingVertical" tools:ignore="NewApi">12dp</item> <!-- Вертикальные отступы -->
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">24dp</item> <!-- Горизонтальные отступы -->
     </style>
 
-    <!-- Стиль для выпадающего списка Spinner -->
-    <style name="CustomSpinnerDropDown" parent="Widget.AppCompat.ListPopupWindow">
-        <item name="android:popupBackground">@android:color/black</item> <!-- Белый фон выпадающего списка -->
-        <item name="android:textColor">@android:color/black</item> <!-- Черный текст в выпадающем списке -->
+    <!-- Стиль для вторичных кнопок -->
+    <style name="ButtonSecondaryDark" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/backgroundDark</item> <!-- Цвет фона -->
+        <item name="android:textColor">@android:color/white</item> <!-- Цвет текста -->
+        <item name="android:paddingVertical" tools:ignore="NewApi">12dp</item> <!-- Вертикальные отступы -->
+    </style>
+
+    <!-- Стиль для EditText (темная тема) -->
+    <style name="EditTextDarkStyle">
+        <item name="android:background">@drawable/edittext_dark_style</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/grayLight</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Стиль для спиннера -->
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/primaryDark</item>
+    </style>
+
+    <!-- Тема приложения -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/primaryDark</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorSecondary">@color/primaryGreen</item>
+        <item name="colorOnSecondary">@android:color/white</item>
     </style>
 </resources>

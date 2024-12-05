@@ -5,6 +5,7 @@
 
     <!-- Цвета текста -->
     <color name="white">#FFFFFF</color>
+    <color name="blue">#02F8BD</color>
     <color name="black">#000000</color>
     <color name="gray">#9E9E9E</color> <!-- Светло-серый -->
     <color name="grayLight">#BDBDBD</color> <!-- Более светлый серый -->
@@ -17,4 +18,8 @@
 
     <color name="inputBackground">#1C1C1E</color> <!-- Основной фон -->
     <color name="inputStroke">#3A3A3C</color> <!-- Цвет рамки -->
+
+    <color name="primaryDark">#00695C</color> <!-- Пример цвета primaryDark -->
+    <color name="primaryVariant">#004D40</color> <!-- Пример цвета primaryVariant -->
+    <color name="secondary">#FF4081</color> <!-- Пример цвета secondary -->
 </resources>

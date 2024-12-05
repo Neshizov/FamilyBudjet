@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ButtonSecondaryDark" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/backgroundDark</item> <!-- Цвет фона -->
+        <item name="android:textColor">@android:color/white</item> <!-- Цвет текста -->
+        <item name="android:paddingVertical">12dp</item> <!-- Вертикальные отступы -->
+    </style>
+
+    <style name="ButtonSberStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/button_background
+        </item> <!-- Цвет фона с радиусом скругления -->
+        <item name="android:textColor">@android:color/white</item> <!-- Цвет текста -->
+        <item name="android:paddingVertical">12dp</item> <!-- Вертикальные отступы -->
+        <item name="android:paddingHorizontal">24dp</item> <!-- Горизонтальные отступы -->
+    </style>
+</resources>

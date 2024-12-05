@@ -25,6 +25,7 @@ public class ChartsActivity extends AppCompatActivity {
     Button buttonClearDatabase, buttonDeleteSpecific, buttonDeleteByCategory, buttonAddExpense, buttonBackToMenu;
     EditText editTextFamilyMember, editTextCategory, editTextAmount;
     Spinner spinnerMonth;
+    PieChart pieChartCategories;
     ViewPager viewPager;
     FamilyMemberPagerAdapter pagerAdapter;
 
@@ -41,23 +42,21 @@ public class ChartsActivity extends AppCompatActivity {
         buttonDeleteSpecific = findViewById(R.id.buttonDeleteSpecific);
         buttonDeleteByCategory = findViewById(R.id.buttonDeleteByCategory);
         buttonAddExpense = findViewById(R.id.buttonAddExpense);
-        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);  // Добавляем кнопку "В меню"
+        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
         editTextFamilyMember = findViewById(R.id.editTextFamilyMember);
         editTextCategory = findViewById(R.id.editTextCategory);
         editTextAmount = findViewById(R.id.editTextAmount);
+        pieChartCategories = findViewById(R.id.pieChartCategories);
 
-        // Установка массива месяцев в Spinner
         String[] monthArray = {"Январь 2024", "Февраль 2024", "Март 2024", "Апрель 2024", "Май 2024", "Июнь 2024",
                 "Июль 2024", "Август 2024", "Сентябрь 2024", "Октябрь 2024", "Ноябрь 2024", "Декабрь 2024"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, monthArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMonth.setAdapter(adapter);
 
-        // Установка текущего месяца по умолчанию
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
         spinnerMonth.setSelection(currentMonth);
 
-        // Установка обработчика выбора месяца
         spinnerMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -69,23 +68,22 @@ public class ChartsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // Обработчики кнопок
         buttonClearDatabase.setOnClickListener(v -> clearDatabase());
         buttonDeleteSpecific.setOnClickListener(v -> deleteSpecificFamilyMember());
         buttonDeleteByCategory.setOnClickListener(v -> deleteByCategory());
         buttonAddExpense.setOnClickListener(v -> addExpense());
 
-        // Обработчик кнопки "В меню"
         buttonBackToMenu.setOnClickListener(v -> {
             Intent intent = new Intent(ChartsActivity.this, MainActivity.class);  // Переход в главное меню
-            startActivity(intent);  // Запуск activity
-            finish();  // Завершаем текущую activity (ChartsActivity)
+            startActivity(intent);
+            finish();
         });
     }
 
     private void loadCharts(String selectedMonth) {
         Cursor cursor = db.getExpensesByMonth(selectedMonth);
         Map<String, Double> totalExpenses = new HashMap<>();
+        Map<String, Double> categoryExpenses = new HashMap<>();
         Map<String, Map<String, Double>> memberExpenses = new HashMap<>();
 
         while (cursor.moveToNext()) {
@@ -94,11 +92,13 @@ public class ChartsActivity extends AppCompatActivity {
             double amount = cursor.getDouble(3);
 
             totalExpenses.put(member, totalExpenses.getOrDefault(member, 0.0) + amount);
+            categoryExpenses.put(category, categoryExpenses.getOrDefault(category, 0.0) + amount);
             memberExpenses.putIfAbsent(member, new HashMap<>());
             memberExpenses.get(member).put(category, memberExpenses.get(member).getOrDefault(category, 0.0) + amount);
         }
 
         drawTotalPieChart(totalExpenses);
+        drawCategoryPieChart(categoryExpenses);
         pagerAdapter = new FamilyMemberPagerAdapter(this, memberExpenses);
         viewPager.setAdapter(pagerAdapter);
     }
@@ -109,7 +109,7 @@ public class ChartsActivity extends AppCompatActivity {
             entries.add(new PieEntry(entry.getValue().floatValue(), entry.getKey()));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Общий расход");
+        PieDataSet dataSet = new PieDataSet(entries, "Общие расходы");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         PieData pieData = new PieData(dataSet);
         pieChartTotal.setData(pieData);
@@ -154,6 +154,19 @@ public class ChartsActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Введите имя члена семьи", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void drawCategoryPieChart(Map<String, Double> data) {
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        for (Map.Entry<String, Double> entry : data.entrySet()) {
+            entries.add(new PieEntry(entry.getValue().floatValue(), entry.getKey()));
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Расходы по категориям");
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        PieData pieData = new PieData(dataSet);
+        pieChartCategories.setData(pieData);
+        pieChartCategories.getDescription().setEnabled(false);
+        pieChartCategories.invalidate();
     }
 
     private void deleteByCategory() {

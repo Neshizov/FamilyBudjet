@@ -13,7 +13,7 @@
         android:padding="24dp">
 
         <!-- Кнопка "Расходы" -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonViewCharts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:paddingHorizontal="16dp" />
 
         <!-- Кнопка "Доходы" -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonViewIncome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:paddingHorizontal="16dp" />
 
         <!-- Кнопка "Сбережения" -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonViewSavings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

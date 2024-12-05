@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String INCOME_TABLE = "income";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2); // Версия базы данных увеличена до 2
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
@@ -24,19 +24,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            // Добавление столбцов без значений по умолчанию
             db.execSQL("ALTER TABLE " + EXPENSES_TABLE + " ADD COLUMN MONTH TEXT");
             db.execSQL("ALTER TABLE " + INCOME_TABLE + " ADD COLUMN MONTH TEXT");
         }
     }
 
-    // Получение текущего месяца в формате "MM-YYYY"
     public String getCurrentMonth() {
-        // Возвращает текущий месяц в формате "MM-YYYY"
         return android.text.format.DateFormat.format("MM-yyyy", new java.util.Date()).toString();
     }
 
-    // Добавление доходов с указанием месяца
     public boolean addIncome(String familyMember, String source, double amount, String month) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -49,7 +45,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    // Добавление расходов с указанием месяца
     public boolean insertExpense(String familyMember, String category, double amount, String month) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -84,6 +79,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getExpensesByMonth(String month) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + EXPENSES_TABLE + " WHERE MONTH = ?", new String[]{month});
+    }
+
+    // Удаление доходов по категории для членя семьи
+    public boolean deleteIncomeByCategory(String familyMember, String category, String month) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = "family_member = ? AND source = ? AND month = ?";
+        String[] whereArgs = { familyMember, category, month };
+
+        int rowsAffected = db.delete(INCOME_TABLE, whereClause, whereArgs);
+
+        return rowsAffected > 0;
     }
 
     // Удаление доходов по имени члена семьи и месяцу
