@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textViewGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Цель"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewTargetAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Целевая сумма"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewCurrentAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Текущая сумма"
+        android:textSize="16sp" />
+</LinearLayout>
