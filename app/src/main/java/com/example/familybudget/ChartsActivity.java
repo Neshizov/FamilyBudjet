@@ -1,6 +1,6 @@
 package com.example.familybudget;
 
-import android.content.Intent;  // Импортируем для работы с Intent
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
 import android.os.Bundle;

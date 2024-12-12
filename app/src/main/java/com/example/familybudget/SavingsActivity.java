@@ -1,10 +1,12 @@
 package com.example.familybudget;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class SavingsActivity extends AppCompatActivity {
+
 
     private Spinner spinnerFamilyMember, spinnerGoal;
     private RecyclerView recyclerViewGoals;
@@ -45,17 +48,42 @@ public class SavingsActivity extends AppCompatActivity {
         editTextGoal = findViewById(R.id.editTextGoal);
         editTextAmount = findViewById(R.id.editTextAmount);
         editTextAddAmount = findViewById(R.id.editTextAddAmount);
-        textStartDate = findViewById(R.id.textStartDate);
-        textEndDate = findViewById(R.id.textEndDate);
         databaseHelper = new DatabaseHelper(this);
         savingGoals = new ArrayList<>();
+
 
         recyclerViewGoals.setLayoutManager(new LinearLayoutManager(this));
         loadFamilyMembersIntoSpinner();
 
         findViewById(R.id.buttonAddGoal).setOnClickListener(v -> addSavingGoal());
         findViewById(R.id.buttonAddToSavings).setOnClickListener(v -> addToSavings());
+        findViewById(R.id.buttonDeleteGoal).setOnClickListener(v -> deleteSavingGoal());
+
+        findViewById(R.id.buttonBackToMenu).setOnClickListener(v -> {
+            Intent intent = new Intent(SavingsActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
+
+    private void deleteSavingGoal() {
+        String selectedFamilyMember = spinnerFamilyMember.getSelectedItem().toString();
+        String selectedGoal = spinnerGoal.getSelectedItem().toString();
+
+        if (selectedFamilyMember.isEmpty() || selectedGoal.isEmpty()) {
+            Toast.makeText(this, "Выберите цель и члена семьи", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean isDeleted = databaseHelper.deleteSavingGoal(selectedFamilyMember, selectedGoal);
+        if (isDeleted) {
+            loadSavingsForFamilyMember(selectedFamilyMember);
+            Toast.makeText(this, "Цель удалена", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Не удалось удалить цель", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void loadFamilyMembersIntoSpinner() {
         Cursor cursor = databaseHelper.getUniqueFamilyMembers();
@@ -101,8 +129,6 @@ public class SavingsActivity extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        updateRecyclerView();
-        updatePieChart();
 
         ArrayAdapter<String> goalAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, goals);
         goalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -112,32 +138,51 @@ public class SavingsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedGoal = parent.getItemAtPosition(position).toString();
+                updateRecyclerView();
+                updatePieChart();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
+        updateRecyclerView();
     }
 
     private void updateRecyclerView() {
-        SavingGoalsAdapter adapter = new SavingGoalsAdapter(savingGoals);
+        SavingGoalsAdapter adapter = new SavingGoalsAdapter(savingGoals, selectedGoal);
         recyclerViewGoals.setAdapter(adapter);
+    }
+
+
+    private String formatAmount(double amount) {
+        return String.format("%.0f", amount);
     }
 
     private void updatePieChart() {
         ArrayList<PieEntry> entries = new ArrayList<>();
+
         for (SavingGoal goal : savingGoals) {
-            float percentage = (float) (goal.getCurrentAmount() / goal.getTargetAmount() * 100);
-            entries.add(new PieEntry(percentage, goal.getGoal()));
+            if (goal.getGoal().equals(selectedGoal)) {
+                float percentage = (float) (goal.getCurrentAmount() / goal.getTargetAmount() * 100);
+
+                entries.add(new PieEntry(percentage, "% Накоплено"));
+                entries.add(new PieEntry(100 - percentage, "% Осталось"));
+            }
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Цели накоплений");
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS[0], ColorTemplate.MATERIAL_COLORS[1]);
+
         PieData data = new PieData(dataSet);
 
         pieChart.setData(data);
         pieChart.invalidate();
+
+        pieChart.getDescription().setEnabled(false);
     }
+
 
     private void addSavingGoal() {
         String familyMemberInput = ((EditText) findViewById(R.id.editTextFamilyMember)).getText().toString().trim();

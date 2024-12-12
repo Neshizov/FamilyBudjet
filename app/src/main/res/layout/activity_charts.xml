@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Кнопка "В меню" -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonBackToMenu"
             android:layout_width="wrap_content"
@@ -24,7 +23,6 @@
             android:elevation="4dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Spinner для выбора месяца -->
         <Spinner
             android:id="@+id/spinnerMonth"
             android:layout_width="match_parent"
@@ -36,21 +34,18 @@
             android:textColor="@color/black"
         android:textAlignment="center" />
 
-        <!-- График расходов -->
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartTotal"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- График расходов по категориям -->
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartCategories"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Слайдер графиков -->
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -58,47 +53,43 @@
             android:contentDescription="Список графиков семейных расходов"
             android:layout_marginBottom="16dp" />
 
-        <!-- Поле ввода "Имя члена семьи" -->
         <EditText
             android:id="@+id/editTextFamilyMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Введите имя члена семьи"
             android:background="@drawable/edittext_dark_style"
-            android:textColor="@color/black"
-        android:textColorHint="@color/grayLight"
-        android:padding="12dp"
-        android:fontFamily="sans-serif"
-        android:layout_marginBottom="8dp" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/grayLight"
+            android:padding="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Поле ввода "Категория" -->
         <EditText
             android:id="@+id/editTextCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Введите категорию"
             android:background="@drawable/edittext_dark_style"
-            android:textColor="@color/black"
-        android:textColorHint="@color/grayLight"
-        android:padding="12dp"
-        android:fontFamily="sans-serif"
-        android:layout_marginBottom="8dp" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/grayLight"
+            android:padding="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Поле ввода "Сумма расхода" -->
         <EditText
             android:id="@+id/editTextAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Введите сумму расхода"
             android:background="@drawable/edittext_dark_style"
-            android:textColor="@color/black"
-        android:textColorHint="@color/grayLight"
-        android:inputType="numberDecimal"
-        android:padding="12dp"
-        android:fontFamily="sans-serif"
-        android:layout_marginBottom="8dp" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/grayLight"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Кнопка "Добавить расход" -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddExpense"
             android:layout_width="match_parent"
@@ -112,7 +103,6 @@
             android:paddingVertical="12dp"
             android:layout_gravity="center" />
 
-        <!-- Кнопка "Очистить базу данных" -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonClearDatabase"
             android:layout_width="match_parent"
@@ -126,7 +116,6 @@
             android:paddingVertical="12dp"
             android:layout_gravity="center" />
 
-        <!-- Кнопка "Удалить по члену семьи" -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonDeleteSpecific"
             android:layout_width="match_parent"
@@ -140,7 +129,6 @@
             android:paddingVertical="12dp"
             android:layout_gravity="center" />
 
-        <!-- Кнопка "Удалить по категории" -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonDeleteByCategory"
             android:layout_width="match_parent"

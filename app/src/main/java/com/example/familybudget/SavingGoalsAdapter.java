@@ -11,9 +11,26 @@ import java.util.List;
 public class SavingGoalsAdapter extends RecyclerView.Adapter<SavingGoalsAdapter.ViewHolder> {
 
     private List<SavingGoal> savingGoals;
+    private String selectedGoal;
 
-    public SavingGoalsAdapter(List<SavingGoal> savingGoals) {
+    public SavingGoalsAdapter(List<SavingGoal> savingGoals, String selectedGoal) {
         this.savingGoals = savingGoals;
+        this.selectedGoal = selectedGoal;
+        sortGoals();
+    }
+
+    private void sortGoals() {
+        if (selectedGoal != null && !selectedGoal.isEmpty()) {
+            // Перемещаем выбранную цель в начало списка
+            for (int i = 0; i < savingGoals.size(); i++) {
+                if (savingGoals.get(i).getGoal().equals(selectedGoal)) {
+                    SavingGoal selected = savingGoals.get(i);
+                    savingGoals.remove(i);
+                    savingGoals.add(0, selected);  // Перемещаем в начало списка
+                    break;
+                }
+            }
+        }
     }
 
     @NonNull
@@ -27,13 +44,24 @@ public class SavingGoalsAdapter extends RecyclerView.Adapter<SavingGoalsAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SavingGoal goal = savingGoals.get(position);
         holder.goalTextView.setText(goal.getGoal());
-        holder.targetAmountTextView.setText("Цель: " + goal.getTargetAmount());
-        holder.currentAmountTextView.setText("Текущее: " + goal.getCurrentAmount());
+
+        String targetAmount = String.format("Цель накопить: %d", (int) goal.getTargetAmount());
+        holder.targetAmountTextView.setText(targetAmount);
+
+        String currentAmount = String.format("Накоплено: %d", (int) goal.getCurrentAmount());
+        holder.currentAmountTextView.setText(currentAmount);
     }
+
 
     @Override
     public int getItemCount() {
         return savingGoals.size();
+    }
+
+    public void updateGoals(List<SavingGoal> newGoals) {
+        savingGoals = newGoals;
+        sortGoals();
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,4 +77,5 @@ public class SavingGoalsAdapter extends RecyclerView.Adapter<SavingGoalsAdapter.
         }
     }
 }
+
 
